@@ -1,3 +1,8 @@
+<?php
+require_once('connect.php');
+
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,6 +15,7 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
     <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+    <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 
 <style>
@@ -31,6 +37,7 @@
                         echo '<a class="mdl-navigation__link" href="signin.php">Sign In</a>';
                     } ?></a></li>
             <li><a href="subscribe.php">Subscribe</a></li>
+            <li><a href="userFeed.php">User Feed</a></li>
             <li><a href="signup.php">Sign Up</a></li>
 
         </ul>
@@ -56,7 +63,7 @@
                 </div>
                 <div class="card-reveal">
                     <span class="card-title grey-text text-darken-4">Flatbill<i class="material-icons right">close</i></span>
-                    <p>Here is some more information about this product that is only revealed once clicked on.</p>
+                    <p class="picDesc">You get a series of flatbill hats with this package that can be chosen to display brands or patterns.</p>
                 </div>
             </div>
 
@@ -70,13 +77,13 @@
                 </div>
                 <div class="card-reveal">
                     <span class="card-title grey-text text-darken-4">Beanie<i class="material-icons right">close</i></span>
-                    <p>Here is some more information about this product that is only revealed once clicked on.</p>
+                    <p class="picDesc">Keep your head warm and choose between a billed beanie or a normal beanie. Also, decide if you want to where it all year long or during the winter by choosing material thickness.</p>
                 </div>
             </div>
 
             <div class="card">
                 <div class="card-image waves-effect waves-block waves-light">
-                    <img class="activator" src="https://s-media-cache-ak0.pinimg.com/736x/26/c5/00/26c500ef99d3c39f20603fc04e13a36a.jpg">
+                    <img class="activator" src="http://www.strictlyfitteds.com/sites/default/files/wp-content/uploads/2010/05/zephyr-fitted-baseball-cap-hat-XXL-3.jpg">
                 </div>
                 <div class="card-content">
                     <span class="card-title activator grey-text text-darken-4">Baseball<i class="material-icons right">more_vert</i></span>
@@ -84,13 +91,13 @@
                 </div>
                 <div class="card-reveal">
                     <span class="card-title grey-text text-darken-4">Baseball<i class="material-icons right">close</i></span>
-                    <p>Here is some more information about this product that is only revealed once clicked on.</p>
+                    <p class="picDesc">Pick out your favorite sports teams and we will send in custom designed sports hats that will match both your fashion style and favorite teams.</p>
                 </div>
             </div>
 
             <div class="card">
                 <div class="card-image waves-effect waves-block waves-light">
-                    <img class="activator" src="images/office.jpg">
+                    <img class="activator" src="http://38.media.tumblr.com/tumblr_lv7accy0sK1qcdtb1.jpg">
                 </div>
                 <div class="card-content">
                     <span class="card-title activator grey-text text-darken-4">Winter<i class="material-icons right">more_vert</i></span>
@@ -98,13 +105,13 @@
                 </div>
                 <div class="card-reveal">
                     <span class="card-title grey-text text-darken-4">Winter<i class="material-icons right">close</i></span>
-                    <p>Here is some more information about this product that is only revealed once clicked on.</p>
+                    <p class="picDesc">Keep your head warm during the winter months with our fur hats, thick beanies, and other types of cold-weather headgear.</p>
                 </div>
             </div>
 
             <div class="card">
                 <div class="card-image waves-effect waves-block waves-light">
-                    <img class="activator" src="images/office.jpg">
+                    <img class="activator" src="http://demo.chimerathemes.com/captivate/files/2012/01/Cowboy-Hat1.jpg">
                 </div>
                 <div class="card-content">
                     <span class="card-title activator grey-text text-darken-4">Cowboy<i class="material-icons right">more_vert</i></span>
@@ -112,13 +119,13 @@
                 </div>
                 <div class="card-reveal">
                     <span class="card-title grey-text text-darken-4">Cowboy<i class="material-icons right">close</i></span>
-                    <p>Here is some more information about this product that is only revealed once clicked on.</p>
+                    <p class="picDesc">Whether your making your way down to Country Thunder or just trying to match your fashion, cowboy works for you anytime.</p>
                 </div>
             </div>
 
             <div class="card">
                 <div class="card-image waves-effect waves-block waves-light">
-                    <img class="activator" src="images/office.jpg">
+                    <img class="activator" src="http://38.media.tumblr.com/tumblr_ma7tfcBYnV1qg3l28.jpg">
                 </div>
                 <div class="card-content">
                     <span class="card-title activator grey-text text-darken-4">Exotic<i class="material-icons right">more_vert</i></span>
@@ -126,13 +133,15 @@
                 </div>
                 <div class="card-reveal">
                     <span class="card-title grey-text text-darken-4">Exotic<i class="material-icons right">close</i></span>
-                    <p>Here is some more information about this product that is only revealed once clicked on.</p>
+                    <p class="picDesc">In his box you can get anything from bucket hats to detective hats to even spinner hats. It's really the luck of the draw but the hats will always be unique.</p>
                 </div>
             </div>
 
+            <!-- http://www.menstylefashion.com/wp-content/uploads/2014/02/Fedora-Hat-for-Men-3.jpg -->
+
             <div class="card">
                 <div class="card-image waves-effect waves-block waves-light">
-                    <img class="activator" src="images/office.jpg">
+                    <img class="activator" src="https://i.ytimg.com/vi/VIIpoteiYjw/maxresdefault.jpg">
                 </div>
                 <div class="card-content">
                     <span class="card-title activator grey-text text-darken-4">Fedora<i class="material-icons right">more_vert</i></span>
@@ -140,7 +149,21 @@
                 </div>
                 <div class="card-reveal">
                     <span class="card-title grey-text text-darken-4">Fedora<i class="material-icons right">close</i></span>
-                    <p>Here is some more information about this product that is only revealed once clicked on.</p>
+                    <p class="picDesc">Neckbeards rejoice! Get all of your fedoras every month here.</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-image waves-effect waves-block waves-light">
+                    <img class="activator" src="http://cdn.shopify.com/s/files/1/0199/4554/products/mystery_hat_grande_726fe7ef-8f24-4d14-9023-a354a1654625_1024x1024.png?v=1424018777">
+                </div>
+                <div class="card-content">
+                    <span class="card-title activator grey-text text-darken-4">Random<i class="material-icons right">more_vert</i></span>
+                    <p><a href="#">Select</a></p>
+                </div>
+                <div class="card-reveal">
+                    <span class="card-title grey-text text-darken-4">Random<i class="material-icons right">close</i></span>
+                    <p class="picDesc">For the adventurous, you get a random hat that doesn't have to be part of our current categories. WARNING! THIS OFFER DOESN'T FOLLOW OUR REFUND POLICIES!!!</p>
                 </div>
             </div>
 

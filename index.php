@@ -35,7 +35,9 @@ session_start();
                     echo '<a href="signin.php">Sign In</a>';
                 }?></a></li>
 <li><a href="subscribe.php">Subscribe</a></li>
+            <li><a href="userFeed.php">User Feed</a></li>
 <li><a href="signup.php">Sign Up</a></li>
+
 
 </ul>
 

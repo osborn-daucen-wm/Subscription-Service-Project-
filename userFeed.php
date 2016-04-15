@@ -1,43 +1,3 @@
-<?php
-require_once('connect.php');
-$error = false;
-$success = false;
-
-session_start();
-
-if (@isset($_SESSION['user']['id'])) {
-    header('Location: index.php');
-}
-
-$error = false;
-$success = false;
-
-if (@$_POST['login']) {
-    if (!$_POST['username']) {
-    }
-    if (!$_POST['password']) {
-    }
-
-    $query = $dbh->prepare("SELECT * FROM users WHERE username = :username AND password = :password");
-    $result = $query->execute(
-        array(
-            'username' => $_POST['username'],
-            'password' => $_POST['password']
-        )
-    );
-    $userinfo = $query->fetch();
-    if ($userinfo) {
-
-        $success = "User, " . $_POST['username'] . " was successfully logged in.";
-
-        $_SESSION['user'] = $userinfo;
-
-        header("Location: index.php");
-    } else {
-        $success = "There was an error logging into the account.";
-    }
-}
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -50,20 +10,21 @@ if (@$_POST['login']) {
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
     <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+    <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 
 <style>
-    .signUpButton {
-        color: white;
-        text-decoration: none;
+    header, main, footer {
+        padding-left: 240px;
     }
-    .input-field {
-        color: #2f3a3a;
+
+    @media only screen and (max-width : 992px) {
+        header, main, footer {
+            padding-left: 0;
+        }
     }
-    .page-footer {
-        position: absolute;
-        bottom: 0%;
-        width: 100%;
+    #logo-container {
+        left: 2em;
     }
 </style>
 
@@ -93,25 +54,62 @@ if (@$_POST['login']) {
 </nav>
 
 <div id="index-banner" class="parallax-container">
+
     <div class="section no-pad-bot">
         <div class="container">
-            <div><h1 class="header center teal-text text-lighten-2">Sign Up</h1></div>
-            <form class="col s12" method="post">
-                <div class="row">
-                    <div class="input-field col s12">
-                        <input id="username" name="username" type="text" class="validate" required>
-                        <label for="username">Username</label>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="input-field col s12">
-                        <input id="password" name="password" type="password" class="validate" required>
-                        <label for="password">Password</label>
-                    </div>
-                </div>
+            <div id="sideNav">
+                <ul id="slide-out" class="side-nav fixed">
+                    <h4 class="sideNavHead sideNavCon">Upload Your Own!</h4>
+                    <p class="sideNavDesc sideNavCon">We love to see happy customers! So, feel free to click on the button below and post your own photos!</p>
+                    <a class="waves-effect waves-light btn" id="sideNavBut" href="addPhoto.php"><i class="material-icons right">send</i>Submit</a>
+                </ul>
+            </div>
 
-                <button class="waves-effect waves-light btn-large" type="submit" name="login" value="1"><a class="signUpButton"></a>Sign In</button>
-            </form>
+            <?php
+            require_once('appvars.php');
+            require_once('connect.php');
+
+            // Retrieve the score data from MySQL
+            $query = "SELECT * FROM hatbox WHERE approved = 1";
+
+            $stmt = $dbh->prepare($query);
+            $stmt->execute();
+            $score = $stmt->fetchall();
+
+            // Loop through the array of score data, formatting it as HTML
+            echo '<table>';
+            foreach ($score as $row) {
+                //Localize the file path
+                $filepath = GW_UPLOADPATH . $row['screenshot'];
+
+                // Display the score data
+                echo '<tr><td class="scoreinfo">';
+                echo '<div class="row">';
+                echo '<div class="col s12 m7">';
+                echo    '<div class="card">';
+                echo        '<div class="card-image">';
+                echo             '<img src="">';
+                echo                    '</div>';
+                echo                        '<div class="card-content imgUser">';
+                echo                        '<p>Posted By</p>';
+                echo                    '<h5>Ozzie</h5>';
+                echo                '</div>';
+                echo            '</div>';
+                echo        '</div>';
+                echo    '</div>';
+                echo '</td>';
+
+                if (is_file($filepath) && filesize($filepath) > 0) {
+                    echo '<td><img src="' .$filepath. '" alt="Score image" /></td></tr>';
+                }
+                else {
+                    echo '<td><img src="images/unverified.gif" alt="Unverified score" /></td></tr>';
+                }
+            }
+            echo '</table>';
+            ?>
+
+            </div>
         </div>
     </div>
 </div>
@@ -121,10 +119,8 @@ if (@$_POST['login']) {
         <div class="row">
             <div class="col l6 s12">
                 <h5 class="white-text">Company Bio</h5>
-                <p class="grey-text text-lighten-4">I am a lone coder and businessman who has built this project
-                    from
-                    the ground up. I wanted to offer people an exciting new experience to look forward to so
-                    they can
+                <p class="grey-text text-lighten-4">I am a lone coder and businessman who has built this project from
+                    the ground up. I wanted to offer people an exciting new experience to look forward to so they can
                     make new memories and still look fresh.</p>
 
 
@@ -156,7 +152,6 @@ if (@$_POST['login']) {
         </div>
     </div>
 </footer>
-
 
 <!--  Scripts-->
 <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
