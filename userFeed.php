@@ -66,11 +66,11 @@
             </div>
 
             <?php
-            require_once('appvars.php');
             require_once('connect.php');
+            require_once('appvars.php');
 
             // Retrieve the score data from MySQL
-            $query = "SELECT * FROM hatbox WHERE approved = 1";
+            $query = "SELECT * FROM feed WHERE approved = 1";
 
             $stmt = $dbh->prepare($query);
             $stmt->execute();
@@ -84,20 +84,7 @@
 
                 // Display the score data
                 echo '<tr><td class="scoreinfo">';
-                echo '<div class="row">';
-                echo '<div class="col s12 m7">';
-                echo    '<div class="card">';
-                echo        '<div class="card-image">';
-                echo             '<img src="">';
-                echo                    '</div>';
-                echo                        '<div class="card-content imgUser">';
-                echo                        '<p>Posted By</p>';
-                echo                    '<h5>Ozzie</h5>';
-                echo                '</div>';
-                echo            '</div>';
-                echo        '</div>';
-                echo    '</div>';
-                echo '</td>';
+                echo '<strong>Date:</strong> ' . $row['date'] . '</td>';
 
                 if (is_file($filepath) && filesize($filepath) > 0) {
                     echo '<td><img src="' .$filepath. '" alt="Score image" /></td></tr>';
