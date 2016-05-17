@@ -74,11 +74,11 @@
 
             $stmt = $dbh->prepare($query);
             $stmt->execute();
-            $score = $stmt->fetchall();
+            $results = $stmt->fetchall();
 
             // Loop through the array of score data, formatting it as HTML
             echo '<table>';
-            foreach ($score as $row) {
+            foreach ($results as $row) {
                 //Localize the file path
                 $filepath = GW_UPLOADPATH . $row['screenshot'];
 
